@@ -1,0 +1,342 @@
+//-------------------//
+// Size Declarations //
+//-------------------//
+
+$tmp: 7;
+$title-fsize: #{$tmp}vmin;
+$m_title-fsize: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 3;
+$title-pad: #{$tmp}vmin;
+$m_title-pad: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 6.5;
+$sub-header-fsize: #{$tmp}vmin;
+$m_sub-header-fsize: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 2;
+$sub-header-pad: #{$tmp}vmin;
+$m_sub-header-pad: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 5;
+$section-header-fsize: #{$tmp}vmin;
+$m_section-header-fsize: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 1;
+$section-header-pad: #{$tmp}vmin;
+$m_section-header-pad: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 4;
+$nav-link-fsize: #{$tmp}vmin;
+$m_nav-link-fsize: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 3.2;
+$content-fsize: #{$tmp}vmin;
+$m_content-fsize: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 5;
+$content-pad: #{$tmp}vmin;
+$m_content-pad: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 2;
+$nav-link-pad: #{$tmp}vmin;
+$m_nav-link-pad: round($max-size * 0.01 * $tmp) * 1px;
+
+$tmp: 24;
+$me-height: #{$tmp}vmin;
+$m_me-height: round($max-size * 0.01 * $tmp) * 1px;
+
+//-----------------------//
+// Set all to border-box //
+//-----------------------//
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
+//--------------------------------------//
+// Get rid of dotted active link border //
+//--------------------------------------//
+
+:focus{
+    outline:0; /*removes the dotted border*/
+}
+
+
+//-----//
+// CSS //
+//-----//
+
+body {
+	backgroung-color: #656565;
+	background-image: url('/img/bg.png');
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0;
+	color: $primary;
+}
+
+h1, h2, h3, h4, h5, h6, nav > .section > .link-wrapper > a, nav > .section > .section-header-wrapper > h3, .chevron {
+	font-family: 'Neuton', serif;
+	font-weight: normal;
+	margin: 0;
+}
+
+.header-wrapper {
+	background: linear-gradient(to bottom, $primary-slight-light 0%, $primary 100%);
+    margin: 0;
+    text-align: center;
+    padding: $title-pad 0;
+    
+	> h1 {
+		font-size: $title-fsize;
+		display: inline-block;
+		color: $fg;
+		
+		&:after {
+			content: ">";
+			font-weight: bold;
+			color: $tertiary;
+			position: relative;
+			margin-left: 8px;
+		}
+	}
+}
+
+h2 {
+	font-size: $sub-header-fsize;
+	padding-top: $sub-header-pad;
+	
+	&:after {
+		content: ">";
+		font-weight: bold;
+		color: $secondary;
+		position: relative;
+		margin-left: 8px;
+	}
+}
+
+h3 {
+	font-size: $section-header-fsize;
+	padding-top: $section-header-pad;
+	
+	&:after {
+		content: ">";
+		font-weight: bold;
+		color: $secondary;
+		position: relative;
+		margin-left: 8px;
+	}
+}
+
+h2 {
+	font-size: $sub-header-fsize;
+	padding-top: $sub-header-pad;
+	
+	&:after {
+		content: ">";
+		font-weight: bold;
+		color: $secondary;
+		position: relative;
+		margin-left: 8px;
+	}
+}
+
+a, a:visited, a:hover, a:active {
+	color: $secondary-saturated;
+	text-decoration: none;
+}
+
+.content, nav{
+	box-shadow: 10px 10px 40px 0px rgba(0,0,0,0.75);
+}
+
+.content > *:last-child {
+	padding-bottom: $sub-header-pad;
+}
+
+.header-wrapper {
+	box-shadow: 0 0 20px 0px rgba(0,0,0,0.75);
+}
+
+.nav-wrapper {
+	background-color: transparent;
+	
+	> nav {
+		background-color: white;
+		height: 100%;
+		
+		> .section {
+			> .link-wrapper
+			, & > .section-header-wrapper {
+				text-align: center;
+				padding: $nav-link-pad 0;
+				display: block;
+			}
+			
+			> .link-wrapper > a {
+				color: $primary;
+			}
+			
+			> .link-wrapper > a
+			, & > .section-header-wrapper > h3 {
+				display: inline-block;
+				font-size: $nav-link-fsize;
+				padding: 0;
+			}
+		
+			> .link-wrapper {
+				cursor: pointer;
+				
+				> .chevron {
+					position: relative;
+					font-size: $nav-link-fsize;
+					font-weight: bold;
+					color: $secondary;
+					margin-left: 8px;
+				}
+			}
+		
+			> .section-header-wrapper {
+				background: linear-gradient(to bottom, rgba(255,252,214,1) 0%,rgba(255, 246, 139, 1) 100%);
+				
+				> h3 {				
+					&:after {
+						content: ">";
+						font-weight: bold;
+						color: $tertiary;
+						position: relative;
+						margin-left: 8px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.content {
+	background-color: white;
+	text-align: center;
+	padding: 0 $content-pad;
+	
+	> img#me {
+		height: $me-height;
+	}
+}
+
+
+
+//------------//
+// Responsive //
+//------------//
+
+@media (min-width: 1024px) {
+	body {
+		text-align: right;
+	}
+	.content-wrapper {
+		width: 70%;
+		background-color: transparent;
+		display: inline-block;
+		vertical-align: top;
+		
+		> .content {
+			display: block;
+			width: 80%;
+			margin: 0 auto;
+		}
+	}
+	.nav-wrapper {
+		width: 30%;
+		display: inline-block;
+	
+		> nav {
+			width: 80%;
+			
+			> .section > .link-wrapper:last-child {
+				padding-bottom: $nav-link-pad;
+			}
+		}
+	}
+	
+	.content {
+		height: 100%;
+		
+		> p {
+			font-size: $content-fsize;
+			margin: $content-pad 0;
+		}
+		
+		> img {
+			margin: $m_sub-header-pad 0;
+		}
+	}
+}
+
+
+//-----------------------//
+// Max Size Declarations //
+//-----------------------//
+
+@media (min-width: #{$max-size}px) and (min-height: #{$max-size}px) {
+	.header-wrapper {
+		padding: $m_title-pad 0;
+		
+		> h1 {
+			font-size: $m_title-fsize;
+		}
+	}
+
+	h2 {
+		font-size: $m_sub-header-fsize;
+		padding-top: $m_sub-header-pad 0;
+	}
+
+	h3 {
+		font-size: $m_section-header-fsize;
+		padding-top: $m_section-header-pad;
+	}
+	
+	.nav-wrapper > nav > .section {
+		> .link-wrapper
+		, & > .section-header-wrapper {
+			padding: $m_nav-link-pad 0;
+		}
+		
+		> .link-wrapper > .chevron {
+			font-size: $m_nav-link-fsize;
+			font-weight: bold;
+			color: $secondary;
+			margin-left: 8px;
+		}
+		
+		> .link-wrapper > a
+		, & > .section-header-wrapper > h3 {
+			font-size: $m_nav-link-fsize;
+		}
+		
+		> .link-wrapper:last-child {
+			padding-bottom: $m_nav-link-pad * 2;
+		}
+	}
+	
+	.content {
+		padding: 0 $m_content-pad;
+		
+		p {
+			font-size: $m_content-fsize;
+			margin: $m_content-pad 0;
+		}
+	
+		> img {
+			margin: $m_sub-header-pad 0;
+			
+			&#me {
+				height: $me-height;
+			}
+		}
+	}
+}

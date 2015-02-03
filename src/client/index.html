@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Welcome to my home</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <base href="/">
+
+    <!-- inject:css -->
+    <!-- endinject -->
+</head>
+
+<body ng-app="personalHome" ng-controller="ApplicationController">
+
+    <div class="header-wrapper">
+        <h1>Welcome to my home</h1>
+    </div>
+
+    <div class="content-wrapper" ng-view>
+    </div>
+    <div class="nav-wrapper">
+        <nav>
+            <div class="section">
+                <div class="section-header-wrapper">
+                    <h3>General</h3>
+                </div>
+                <div class="link-wrapper">
+                    <a href="/home">Home</a>
+                    <span class="chevron">></span>
+                </div>
+                <div class="link-wrapper">
+                    <a href="/about">About Me</a>
+                    <span class="chevron">></span>
+                </div>
+                <div class="link-wrapper">
+                    <a href="/contact">Contact</a>
+                    <span class="chevron">></span>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-header-wrapper">
+                    <h3>Projects</h3>
+                </div>
+                <div class="link-wrapper">
+                    <a href="/linux-thangs">Linux Thangs</a>
+                    <span class="chevron">></span>
+                </div>
+                <div class="link-wrapper">
+                    <a href="/my-stack">My Stack</a>
+                    <span class="chevron">></span>
+                </div>
+                <div class="link-wrapper">
+                    <a href="/misc-music-tool">Miscellaneous Music Tool</a>
+                    <span class="chevron">></span>
+                </div>
+                <div class="link-wrapper">
+                    <a href="/twitter-api-tester">Twitter API Tester</a>
+                    <span class="chevron">></span>
+                </div>
+                <div class="link-wrapper">
+                    <a href="/my-node-tools">My Node Tools</a>
+                    <span class="chevron">></span>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- inject:js -->
+    <!-- endinject -->
+</body>
+
+</html>
