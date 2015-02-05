@@ -32,11 +32,12 @@ function buildCss() {
 
     var nodeSassOpts = {
         file: path.join(srcScss, 'index.scss')
-        , outFile: 'index.css'
     };
-    nodeSassOpts['sourceMap'] = (envInstance.isProd())
-        ? false
-        : true;
+
+    if (!envInstance.isProd()) {
+        nodeSassOpts.sourceMap = true;
+        nodeSassOpts.outFile = 'index.css';
+    }
 
     if (envInstance.isProd()) {
         nodeSassOpts['outputStyle'] = 'compressed';
@@ -51,10 +52,18 @@ function buildCss() {
                     }
                 })
                 .then(function() {
-                    return bPromise.join(
-                        bFs.writeFileAsync(destCss, successObj.css)
-                        , bFs.writeFileAsync(destCss + '.map', successObj.map)
-                    );
+                    var pRes;
+
+                    if (envInstance.isProd()) {
+                        pRes = bFs.writeFileAsync(destCss, successObj.css);
+                    } else {
+                        pRes = bPromise.join(
+                            bFs.writeFileAsync(destCss, successObj.css)
+                            , bFs.writeFileAsync(destCss + '.map', successObj.map)
+                        );
+                    }
+
+                    return pRes;
                 });
         });
 
