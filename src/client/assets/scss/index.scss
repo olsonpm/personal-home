@@ -6,8 +6,8 @@
 
 /* Vendor styles */
 
-@import 'vendor/normalize';
-@import 'vendor/perfect-scrollbar';
+@import '../../../../node_modules/normalize.scss/normalize.scss';
+@import '../../../../node_modules/perfect-scrollbar/src/perfect-scrollbar';
 @import 'partials/vendor-overrides';
 
 

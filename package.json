@@ -36,10 +36,11 @@
     "ncp": "^1.0.1",
     "node-helpers": "git://github.com/olsonpm/node-helpers.git",
     "node-sass-bluebird": "git://github.com/olsonpm/node-sass-bluebird.git",
-    "normalize-css": "^2.3.1",
+    "normalize.scss": "git://github.com/olsonpm/normalize.scss.git",
     "require-dir": "^0.1.0",
     "stream-to-promise": "^1.0.4",
     "through2": "^0.6.3",
+    "tiny-lr": "^0.1.4",
     "true-task": "git://github.com/olsonpm/true-task.git",
     "true-task-manager": "git://github.com/olsonpm/true-task-manager.git",
     "true-task-manager-cli": "git://github.com/olsonpm/true-task-manager-cli.git",
@@ -58,8 +59,7 @@
     "mocha": "^2.1.0",
     "mocha-clean": "^0.4.0",
     "open": "0.0.5",
-    "perfect-scrollbar": "^0.5.8",
-    "tiny-lr": "^0.1.4"
+    "perfect-scrollbar": "^0.5.8"
   },
   "site_env": "PERSONAL_HOME_NODE_ENV",
   "browser": {
