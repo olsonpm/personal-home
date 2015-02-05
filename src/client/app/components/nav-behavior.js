@@ -2,7 +2,8 @@
 
 var TweenLite = require('TweenLite')
     , nh = require('node-helpers')
-    , initHoverIntent = require('hoverintent');
+    , initHoverIntent = require('hoverintent')
+    , imagesloaded = require('imagesloaded');
 
 require('gsapCssPlugin');
 var gsapd = nh.gsapDefaults(window);
@@ -18,21 +19,22 @@ function initNavBehavior($, $scope, $location, log) {
     };
 
     $(document).ready(function() {
+        preload($, ['/img/nav-button-hover.png']);
         addChevronBehavior($);
         addClickBehavior($, $scope, $location, log);
     });
 }
 
-function addClickBehavior($, $scope, $location) {
+function addClickBehavior($, $scope, $location, log) {
     $('#nav-btn').click(function() {
         var navWrapper = $('.nav-wrapper');
         var contentWrapper = $('.content-wrapper');
 
         // if nav isn't showing, then display the nav
         if (navWrapper.hasClass('hidden')) {
-            hideContentThenShowNav($, navWrapper, contentWrapper);
+            hideContentThenShowNav($, navWrapper, contentWrapper, log);
         } else {
-            hideNavThenShowContent($, navWrapper, contentWrapper);
+            hideNavThenShowContent($, navWrapper, contentWrapper, log);
         }
     });
 }
@@ -127,6 +129,25 @@ function addChevronBehavior($) {
             });
         });
     });
+}
+
+function preload($, sources, callback) {
+    if (sources.length) {
+        var preloaderDiv = $('<div style="display: none;"></div>').prependTo(document.body);
+
+        $.each(sources, function(i, source) {
+            $("<img/>").attr("src", source).appendTo(preloaderDiv);
+
+            if (i == (sources.length - 1)) {
+                $(preloaderDiv).imagesLoaded(function() {
+                    $(this).remove();
+                    if (callback) callback();
+                });
+            }
+        });
+    } else {
+        if (callback) callback();
+    }
 }
 
 module.exports = initNavBehavior;
