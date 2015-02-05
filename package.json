@@ -86,6 +86,8 @@
       ],
       "exports": "angular.module('ngRoute').name"
     }
-  },
-  "engine": "node 0.10.33"
+  },  
+  "engines": {
+    "node": "0.10.x"
+  }
 }
