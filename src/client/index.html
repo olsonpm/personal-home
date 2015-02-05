@@ -15,13 +15,16 @@
     <!-- endinject -->
 </head>
 
-<body ng-app="personalHome" ng-controller="ApplicationController">
+<body ng-app="personalHome" ng-controller="ApplicationController" data-url404="{{ url }}">
 
     <div class="header-wrapper">
+        <div id="nav-btn"></div>
         <h1>Welcome to my home</h1>
     </div>
 
-    <div class="content-wrapper" ng-view>
+    <div class="content-wrapper">
+        <div class="content" ng-view>
+        </div>
     </div>
     <div class="nav-wrapper">
         <nav>
@@ -29,16 +32,16 @@
                 <div class="section-header-wrapper">
                     <h3>General</h3>
                 </div>
-                <div class="link-wrapper">
-                    <a href="/home">Home</a>
+                <div class="link-wrapper" ng-click="navClick('/home')">
+                    Home
                     <span class="chevron">></span>
                 </div>
-                <div class="link-wrapper">
-                    <a href="/about">About Me</a>
+                <div class="link-wrapper" ng-click="navClick('/about')">
+                    About Me
                     <span class="chevron">></span>
                 </div>
-                <div class="link-wrapper">
-                    <a href="/contact">Contact</a>
+                <div class="link-wrapper" ng-click="navClick('/contact')">
+                    Contact
                     <span class="chevron">></span>
                 </div>
             </div>
@@ -46,29 +49,39 @@
                 <div class="section-header-wrapper">
                     <h3>Projects</h3>
                 </div>
-                <div class="link-wrapper">
-                    <a href="/linux-thangs">Linux Thangs</a>
+                <div class="link-wrapper" ng-click="navClick('/linux-thangs')">
+                    Linux Thangs
                     <span class="chevron">></span>
                 </div>
-                <div class="link-wrapper">
-                    <a href="/my-stack">My Stack</a>
+                <div class="link-wrapper" ng-click="navClick('/my-stack')">
+                    My Stack
                     <span class="chevron">></span>
                 </div>
-                <div class="link-wrapper">
-                    <a href="/misc-music-tool">Miscellaneous Music Tool</a>
+                <div class="link-wrapper" ng-click="navClick('/misc-music-tool')">
+                    Misc. Music Tool
                     <span class="chevron">></span>
                 </div>
-                <div class="link-wrapper">
-                    <a href="/twitter-api-tester">Twitter API Tester</a>
+                <div class="link-wrapper" ng-click="navClick('/twitter-api-tester')">
+                    Twitter API Tester
                     <span class="chevron">></span>
                 </div>
-                <div class="link-wrapper">
-                    <a href="/my-node-tools">My Node Tools</a>
+                <div class="link-wrapper" ng-click="navClick('/my-node-tools')">
+                    My Node Tools
                     <span class="chevron">></span>
                 </div>
             </div>
         </nav>
     </div>
+
+    <!-- weinre
+	
+	Command
+	  weinre --httpPort 8081 --boundHost 10.0.0.21
+	
+	Script
+	  <script src="http://10.0.0.21:8081/target/target-script-min.js#anonymous"></script>
+	
+	-->
 
     <!-- inject:js -->
     <!-- endinject -->

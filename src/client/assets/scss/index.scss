@@ -4,8 +4,14 @@
 @import 'modules/colors';
 
 
+/* Vendor styles */
+
+@import 'vendor/normalize';
+@import 'vendor/perfect-scrollbar';
+@import 'partials/vendor-overrides';
+
+
 /* Now partials */
 
-@import 'partials/normalize';
 @import 'partials/fonts';
 @import 'partials/base';

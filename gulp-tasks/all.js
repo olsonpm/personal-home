@@ -15,16 +15,21 @@ var gulp = require('gulp')
     , through2 = require('through2')
     , Express = require('express')
     , tinyLr = require('tiny-lr')
-    , http = require('http');
+    , http = require('http')
+    , addRoutes = require('../src/server/routes.js')
+    , compression = require('compression');
 
 var OperationalError = bPromise.OperationalError;
 var Environment = nh.Environment;
-var curEnv = (new Environment(config.site_env)).curEnv();
+var envInstance = new Environment(config.site_env);
+var curEnv = envInstance.curEnv();
 var srcHtml = 'src/client/index.html';
 var destHtml = curEnv;
+
+// this is just a variable to hold all the site's environment variable dependencies.
+//   Too often I've deployed and forgot to add the environment var to heroku causing errors.
 var envVarsUsed = [
     'PERSONAL_HOME_NODE_ENV'
-    , 'PERSONAL_HOME_PORT'
 ];
 
 gulp.task('build', ['build-fonts', 'build-img', 'build-scss', 'build-js', 'clean-html'], build);
@@ -54,18 +59,15 @@ gulp.task('start-server', function() {
     checkEnvVars();
 
     var app = Express();
+    app.use(compression());
 
     app.use(Express.static(path.join(curEnv)));
 
-    app.get('/', function(req, res) {
-            res.sendFile(path.join(process.cwd(), curEnv, 'index.html'));
-        })
-        .get(/^([^\.]+)$/, function(req, res) {
-            res.sendFile(path.join(process.cwd(), curEnv, 'index.html'));
-        });
+    addRoutes(app, curEnv, process.cwd());
 
-    app.listen(process.env.PERSONAL_HOME_PORT);
-    console.log("" + curEnv + " server listening on port " + process.env.PERSONAL_HOME_PORT);
+    var port = process.env.PERSONAL_HOME_PORT || process.env.PORT;
+    app.listen(port);
+    console.log("" + curEnv + " server listening on port " + port);
 });
 
 gulp.task('start-lr', function() {
@@ -76,7 +78,6 @@ gulp.task('start-lr', function() {
 });
 
 gulp.task('html-watch', function() {
-    console.log('is this happening?');
     var watcher = vFs.watch(srcHtml);
     watcher.on('change', function(fpath) {
         try {
@@ -94,7 +95,6 @@ gulp.task('html-watch', function() {
                     http.get(options);
                 })
                 .catch(function(err) {
-                    console.log('errrrr happened');
                     console.log('%j', err);
                 });
         } catch (e) {
@@ -114,8 +114,15 @@ function injector() {
         var cssInject = "<!-- inject:css -->";
         var jsInject = "<!-- inject:js -->";
         var endInject = "<!-- endinject -->";
-        var indexCssRel = "css/index.css";
-        var indexJsRel = "index.js";
+
+        var indexCssRel = envInstance.isProd()
+            ? "css/index.min.css"
+            : "css/index.css";
+
+        var indexJsRel = envInstance.isProd()
+            ? "index.min.js"
+            : "index.js";
+
         var indexCssOut = path.join(curEnv, indexCssRel);
         var indexJsOut = path.join(curEnv, indexJsRel);
         var injectedCss = '<link rel="stylesheet" type="text/css" href="' + indexCssRel + '">';

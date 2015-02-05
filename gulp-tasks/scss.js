@@ -12,22 +12,37 @@ var gulp = require('gulp')
     , bFs = require('fs-bluebird')
     , nh = require('node-helpers')
     , config = require('../package.json')
-    , http = require('http');
+    , http = require('http')
+    , bNcp = bPromise.promisifyAll(require('ncp')).ncp;
 
 var OperationalError = bPromise.OperationalError;
 var Environment = nh.Environment;
-var curEnv = new Environment(config.site_env).curEnv();
+var envInstance = new Environment(config.site_env);
+var curEnv = envInstance.curEnv();
 var srcScss = 'src/client/assets/scss';
-var destCss = path.join(curEnv, 'css/index.css');
+var cssOut = envInstance.isDev()
+    ? 'index.css'
+    : 'index.min.css';
+var destCss = path.join(curEnv, 'css', cssOut);
 
 gulp.task('build-scss', ['scss-clean'], buildCss);
 
 function buildCss() {
-    return bSass.pRender({
-            file: path.join(srcScss, 'index.scss')
-            , outFile: destCss
-            , sourceMap: true
-        })
+    var res;
+
+    var nodeSassOpts = {
+        file: path.join(srcScss, 'index.scss')
+        , outFile: 'index.css'
+    };
+    nodeSassOpts['sourceMap'] = (envInstance.isProd())
+        ? false
+        : true;
+
+    if (envInstance.isProd()) {
+        nodeSassOpts['outputStyle'] = 'compressed';
+    }
+
+    var bCompileAndCopySass = bSass.pRender(nodeSassOpts)
         .then(function(successObj) {
             return bFs.mkdirAsync(path.join(curEnv, 'css'))
                 .catch(function(err) {
@@ -42,16 +57,41 @@ function buildCss() {
                     );
                 });
         });
+
+    if (envInstance.isProd()) {
+        res = bCompileAndCopySass;
+    } else {
+        res = bPromise.join(
+            bCompileAndCopySass
+            , bNcp(srcScss, path.join(curEnv, 'css'))
+        );
+    }
+
+    return res;
 }
 
 gulp.task('scss-clean', function() {
-    return bFs.unlinkAsync(destCss)
+    var dirPath = path.join(curEnv, 'css');
+    return rmContents(dirPath)
         .catch(OperationalError, function(err) {
             if (err.code !== 'ENOENT') {
                 throw err;
             }
         });
 });
+
+function removeFiles(files, dirPath) {
+    return bPromise.all(
+        files.map(function(f) {
+            return bFs.unlinkAsync(path.join(dirPath, f))
+                .catch(OperationalError, function(err) {
+                    if (err.code !== 'ENOENT') {
+                        throw err;
+                    }
+                });
+        })
+    );
+}
 
 gulp.task('scss-watch', function() {
     var watcher = vFs.watch(path.join(srcScss, "**/*"));
@@ -68,3 +108,35 @@ gulp.task('scss-watch', function() {
             });
     });
 });
+
+// need to separate this out into a module
+function rmContents(dir) {
+    return bFs.readdirAsync(dir)
+        .then(function(files) {
+            files = files.map(function(f) {
+                var fname = path.join(dir, f);
+                return bPromise.join(
+                    bFs.statAsync(fname)
+                    , fname
+                    , rmRecurse
+                );
+            });
+
+            return bPromise.all(files);
+        })
+        .catch(OperationalError, function(err) {
+            if (err.code !== 'ENOENT') {
+                throw err;
+            }
+        });
+}
+
+function rmRecurse(finfo, fname) {
+    // assuming either file or dir.  No special file types considered
+    return (finfo.isFile())
+        ? bFs.unlinkAsync(fname)
+        : rmContents(fname)
+        .then(function() {
+            return bFs.rmdirAsync(fname);
+        });
+}

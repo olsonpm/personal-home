@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var path = require('path');
 
@@ -27,7 +27,7 @@ module.exports = function(app, curEnv) {
                 redirectTo: '/home'
             })
             .otherwise({
-                templateUrl: path.join(curEnv, 'app/components/errors/404.html')
+                templateUrl: path.join(curEnv, 'app/components/static/404.html')
             });
 
         $locationProvider.html5Mode(true);

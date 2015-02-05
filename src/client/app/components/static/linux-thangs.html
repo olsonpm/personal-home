@@ -1,0 +1,16 @@
+<h2>Linux Thangs</h2>
+
+<p>Starting mid-August of last year, I finally decided to learn what I could about Linux (had always worked with Windows prior). I built a computer and installed a couple OS's before landing on ubuntu server 14.04. I wanted to become comfortable on the command line to see what it had to offer. I found the experience invaluable when moving onto my current Ubuntu desktop.</p>
+
+<h3>Making Bash useful</h3>
+<p><a href="https://github.com/olsonpm/bash-library">Here is my small Bash library</a>. I decided to learn Bash before understanding the breadth of its utility, and my first goal was to create a usable 'import'. There were some hoops to jump through, but I ultimately got it working and was happy with the relatively clean result. Other utilities I created and made import'able were logging, a simple test library (including a results displayer), a library to manage configuration files, and a simple Bash file_exists abstraction.</p>
+
+<h3>VSFTPd</h3>
+<p><a href="https://github.com/olsonpm/vsftpd-scripts">Here are my vsftpd scripts</a>. When I first installed Ubuntu server I had a few projects in mind, but foremost I wanted an ftps server (I guess sftp is superior, but I already started working toward ftps before realizing this). With the above Bash library and a newfound organized pattern of bash development, I created the scripts which basically formulate an ftp server application. My requirements were:</p>
+<ul>
+    <li>Security comes first (hence vsftpd and <a href="https://github.com/snookie/pam-pgsql-bcrypt/commits?author=olsonpm">my small contributions to pam-pgsql*</a>)</li>
+    <li>Easily support a varying number of users (Scripting user CRUD was a must)</li>
+    <li>Users can belong to groups, where a group has a shared r/w directory as well as a read-only directory</li>
+</ul>
+<p>Although I became comfortable working with bash after this project, I would definitely say it taught me why people choose python/perl/etc when scripting small applications such as this one. Still, the outcome was a useable, secure ftps server manager which I was very happy about.</p>
+<p>*Ubuntu's pam-pgsql package didn't support b-crypt and its other options were pretty terrible in comparison, which is why I found an external repository with a b-crypt port.</p>

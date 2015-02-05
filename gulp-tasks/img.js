@@ -35,7 +35,24 @@ gulp.task('img-clean', function() {
             if (err.code !== 'ENOENT') {
                 throw err;
             } else {
-                return bFs.mkdirAsync(destImg);
+                return bFs.existsAsync(curEnv)
+                    .then(function(exists) {
+                        var res;
+                        if (!exists) {
+                            res = bFs.mkdirAsync(curEnv)
+                                .catch(OperationalError, function(err) {
+                                    if (err.code !== 'EEXIST') {
+                                        throw err;
+                                    }
+                                })
+                                .then(function() {
+                                    return bFs.mkdirAsync(destImg);
+                                });
+                        } else {
+                            res = bFs.mkdirAsync(destImg);
+                        }
+                        return res;
+                    });
             }
         });
 });

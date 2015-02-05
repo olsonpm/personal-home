@@ -35,7 +35,24 @@ gulp.task('fonts-clean', function(cb) {
             if (err.code !== 'ENOENT') {
                 throw err;
             } else {
-                return bFs.mkdirAsync(destFonts);
+                return bFs.existsAsync(curEnv)
+                    .then(function(exists) {
+                        var res;
+                        if (!exists) {
+                            res = bFs.mkdirAsync(curEnv)
+                                .catch(OperationalError, function(err) {
+                                    if (err.code !== 'EEXIST') {
+                                        throw err;
+                                    }
+                                })
+                                .then(function() {
+                                    return bFs.mkdirAsync(destFonts);
+                                });
+                        } else {
+                            res = bFs.mkdirAsync(destFonts);
+                        }
+                        return res;
+                    });
             }
         });
 });

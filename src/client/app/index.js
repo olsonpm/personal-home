@@ -18,7 +18,6 @@ var curEnv = (new nh.Environment(process.env[config.site_env])).curEnv();
 // Init //
 //------//
 
-// this line is mainly for logging which I'll add later
 var appName = "Personal home";
 var bstream = BunyanStreams(appName, curEnv);
 var log = bunyan.createLogger({
@@ -48,3 +47,10 @@ require('./routes')(app, curEnv);
 //-----------------//
 
 require('./components/application-controller')(app, log);
+
+
+//----------------//
+// Add Directives //
+//----------------//
+
+require('./components/error404.js')(app, log);

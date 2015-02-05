@@ -14,13 +14,18 @@ var gulp = require('gulp')
     , nh = require('node-helpers')
     , through2 = require('through2')
     , config = require('../package.json')
-    , templateCache = require('gulp-angular-templatecache');
+    , templateCache = require('gulp-angular-templatecache')
+    , uglifyStream = require('uglify-stream');
 
 var OperationalError = bPromise.OperationalError;
 var Environment = nh.Environment;
-var curEnv = new Environment(config.site_env).curEnv();
+var envInstance = new Environment(config.site_env);
+var curEnv = envInstance.curEnv();
 var srcApp = 'src/client/app';
-var destJs = path.join(curEnv, 'index.js');
+var jsOut = envInstance.isDev()
+    ? 'index.js'
+    : 'index.min.js';
+var destJs = path.join(curEnv, jsOut);
 
 gulp.task('build-js', ['js-clean'], function(cb) {
     var fileIn = './' + path.join(srcApp, 'index.js')
@@ -33,11 +38,16 @@ gulp.task('build-js', ['js-clean'], function(cb) {
         }))
         .pipe(vFs.dest(srcApp))
         .on('end', function() {
-            browserify(fileIn)
-                .bundle()
-                .pipe(vss('index.js'))
+            var bundledStream = browserify(fileIn)
+                .bundle();
+
+            if (envInstance.isProd()) {
+                bundledStream = bundledStream.pipe(uglifyStream());
+            }
+
+            bundledStream.pipe(vss(jsOut))
                 .pipe(replaceENV())
-                .pipe(vFs.dest('dev'))
+                .pipe(vFs.dest(curEnv))
                 .on('end', function() {
                     cb();
                 });
