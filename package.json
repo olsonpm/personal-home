@@ -35,6 +35,7 @@
     "moment": "^2.9.0",
     "ncp": "^1.0.1",
     "node-helpers": "git://github.com/olsonpm/node-helpers.git",
+    "node-sass-bluebird": "git://github.com/olsonpm/node-sass-bluebird.git",
     "normalize-css": "^2.3.1",
     "require-dir": "^0.1.0",
     "stream-to-promise": "^1.0.4",
@@ -86,7 +87,7 @@
       ],
       "exports": "angular.module('ngRoute').name"
     }
-  },  
+  },
   "engines": {
     "node": "0.10.x"
   }
