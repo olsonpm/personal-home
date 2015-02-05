@@ -3,3 +3,4 @@ dev
 test
 prod
 npm-debug.log
+src/client/app/templates.js

@@ -5,7 +5,13 @@
   "license": "ISC",
   "name": "personal-home",
   "scripts": {
-    "build-dev": "PERSONAL_HOME_NODE_ENV=PROD; gulp build"
+    "start": "gulp build && gulp start-server",
+    "build-dev": "export PERSONAL_HOME_NODE_ENV=dev && gulp build",
+    "build-test": "export PERSONAL_HOME_NODE_ENV=test && gulp build",
+    "build-prod": "export PERSONAL_HOME_NODE_ENV=prod && gulp build",
+    "start-dev": "export PERSONAL_HOME_NODE_ENV=dev && gulp start-server",
+    "start-test": "export PERSONAL_HOME_NODE_ENV=test && gulp start-server",
+    "start-prod": "export PERSONAL_HOME_NODE_ENV=prod && gulp start-server"
   },
   "dependencies": {
     "angular-route": "^1.3.11",
@@ -80,5 +86,6 @@
       ],
       "exports": "angular.module('ngRoute').name"
     }
-  }
+  },
+  "engine": "node 0.10.33"
 }
