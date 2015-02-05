@@ -54,13 +54,7 @@
     "vinyl-source-stream": "^1.0.0",
     "vinyl-transform": "^1.0.0"
   },
-  "devDependencies": {
-    "chai": "^1.10.0",
-    "fancybox": "^2.1.5",
-    "mocha": "^2.1.0",
-    "mocha-clean": "^0.4.0",
-    "open": "0.0.5"
-  },
+  "devDependencies": {},
   "site_env": "PERSONAL_HOME_NODE_ENV",
   "browser": {
     "angular": "./node_modules/angular/angular.js",
