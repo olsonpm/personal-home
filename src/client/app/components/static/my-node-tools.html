@@ -1,31 +1,23 @@
 <h2>My Node Tools</h2>
 
-<p>I'm hoping to finish some of these node-tools and publish them on npm soon.</p>
+<h3>Promise task runner</h3>
+<ul class="site-source-listing">
+    <li>
+        <a href="https://github.com/olsonpm/promise-task-runner">Source</a>
+    </li>
+</ul>
 
-<h3>Project Scaffolder</h3>
+<p>This is published on npm as promise-task-runner</p>
+
+<p>For those unfamiliar, a node task runner is mainly just a CLI gateway to javascript functions (the tasks), which have declared dependencies.  They are commonly found in build tools such as gulp and grunt.  My task runner is very similar to gulp's, but conceptually differs in how the dependencies are structured.  There are also a few bits of functionality my task runner supports which aren't available in gulp.</p>
+
+<p>This is my first published npm package, and in attempt to battle the trend of poor documentation for open source projects, I've <a href="https://github.com/olsonpm/promise-task-runner/wiki">documented mine thoroughly</a>.  I'm happy with the result because of the effort it took to create a sensible, intuitive API as well as supporting documentation allowing anyone to pick it up.
+</p>
+
+
+<h3>Project Scaffolder (not finished)</h3>
 <p><a href="https://github.com/olsonpm/project-scaffolder">Here is the beginning of my project scaffolder</a>, though I'm more posting this to discuss my general thoughts on scaffolders. When I first read about them, the concept seemed awesome because currently I spend too much time configuring the beginning of a website. This mostly includes the build process, but can also include testing setup, watchers + live-reload, and client/server side directory structure along with common code. The most popular scaffolder right now seems to be Yeoman. Since I wanted to use angular for a pet project, I found a Yeoman 'angular generator' and realized it's not just angular but all these other tools I don't need. I then saw 100 other angular generators. Pretty inefficient if you ask me, because obviously people need something more generic than the ability to create their own narrow generator and impulsively share it with the world. They're also completely abusing the search term 'angular generator'.</p>
 
 <p>I want a project scaffolder to be configurable with a base template folder from which files get added to and modified in depending on user input. I want that template folder and configuration file to be easily modified and then shared with a team so that every project shares a similar structure. What yeoman generators essentially are (and how they should be termed) are generator configurations. However instead of all those configurations residing in a single json file, they are hardwired with custom code. This means customizing anything likely means modifying that code, which is why so many one-off generators are created.</p>
 
 <p>It's very possible my knowledge on this subject is far too small to be taken seriously, but my goal is to create a single, configurable scaffolder.</p>
-
-<h3>Task Runner</h3>
-<ul class="site-source-listing">
-    <li class="site-name">
-        Source Code
-    </li>
-    <li>
-        <a href="https://github.com/olsonpm/true-task">Task</a>
-    </li>
-    <li>
-        <a href="https://github.com/olsonpm/true-task-manager">Task Manager</a>
-    </li>
-    <li>
-        <a href="https://github.com/olsonpm/true-task-manager-cli">Task Manager CLI</a>
-    </li>
-</ul>
-
-<p>My task runner is almost complete. I had to stop working on it in order to get this website out.</p>
-
-<p>The main reason I decided to create my own task runner is I wanted to pass arguments into a build process. I've gotten around this using environment variables, but my simple use-case was to have a build task perform different logic based on whether it was intended for dev/test/prod. The current Gulp structure doesn't allow for that directly. Working on my own task runner also opened my eyes to how much of a wrapper gulp actually is. That team did a great job of creating a coherent structure from existing tools, but some of their tooling choices I don't agree with. Particularly their avoidance of promise-based tasks and their dependency on vinyl streams are why I chose to create my own.
-</p>
