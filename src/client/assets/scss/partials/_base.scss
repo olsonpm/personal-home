@@ -28,7 +28,7 @@ $tmp: 5.5;
 $section-header-fsize: #{$tmp}vmin;
 $m_section-header-fsize: round($max-size * 0.01 * $tmp) * 1px;
 
-$tmp: 1;
+$tmp: 4;
 $section-header-pad: #{$tmp}vmin;
 $m_section-header-pad: round($max-size * 0.01 * $tmp) * 1px;
 
@@ -464,7 +464,7 @@ a, a:visited, a:hover, a:active {
 		
 		p {
 			font-size: $m_content-fsize;
-			margin: $m_content-pad 0;
+			margin: $m_content-pad 0 0;
 		}
 	
 		> img {
