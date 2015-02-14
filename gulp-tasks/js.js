@@ -14,8 +14,7 @@ var gulp = require('gulp')
     , nh = require('node-helpers')
     , through2 = require('through2')
     , config = require('../package.json')
-    , templateCache = require('gulp-angular-templatecache')
-    , uglifyStream = require('uglify-stream');
+    , templateCache = require('gulp-angular-templatecache');
 
 var OperationalError = bPromise.OperationalError;
 var Environment = nh.Environment;
