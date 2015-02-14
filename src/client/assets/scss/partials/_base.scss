@@ -20,7 +20,7 @@ $tmp: 6.5;
 $sub-header-fsize: #{$tmp}vmin;
 $m_sub-header-fsize: round($max-size * 0.01 * $tmp) * 1px;
 
-$tmp: 2;
+$tmp: 4;
 $sub-header-pad: #{$tmp}vmin;
 $m_sub-header-pad: round($max-size * 0.01 * $tmp) * 1px;
 
@@ -125,19 +125,6 @@ h3 {
 	}
 }
 
-h2 {
-	font-size: $sub-header-fsize;
-	padding-top: $sub-header-pad;
-	
-	&:after {
-		content: ">";
-		font-weight: bold;
-		color: $secondary;
-		position: relative;
-		margin-left: 8px;
-	}
-}
-
 a, a:visited, a:hover, a:active {
 	color: $secondary-saturated;
 	text-decoration: none;
@@ -210,7 +197,7 @@ a, a:visited, a:hover, a:active {
 		}
 	}
 	
-	> *:last-child {
+	> p:last-of-type {
 		padding-bottom: $sub-header-pad;
 	}
 
@@ -428,7 +415,7 @@ a, a:visited, a:hover, a:active {
 
 	h2 {
 		font-size: $m_sub-header-fsize;
-		padding-top: $m_sub-header-pad 0;
+		padding-top: $m_sub-header-pad;
 	}
 
 	h3 {
@@ -473,6 +460,10 @@ a, a:visited, a:hover, a:active {
 			&#me {
 				height: $me-height;
 			}
+		}
+	
+		> p:last-of-type {
+			padding-bottom: $sub-header-pad;
 		}
 
 		dl.contact-info {	
