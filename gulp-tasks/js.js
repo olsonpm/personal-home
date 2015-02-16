@@ -14,11 +14,14 @@ var gulp = require('gulp')
     , nh = require('node-helpers')
     , through2 = require('through2')
     , config = require('../package.json')
+    , uglifyStream = require('uglify-stream')
     , templateCache = require('gulp-angular-templatecache');
 
 var OperationalError = bPromise.OperationalError;
 var Environment = nh.Environment;
-var envInstance = new Environment(config.site_env);
+var envInstance = new Environment({
+    serverEnv: config.site_env
+});
 var curEnv = envInstance.curEnv();
 var srcApp = 'src/client/app';
 var jsOut = envInstance.isDev()

@@ -21,7 +21,9 @@ var gulp = require('gulp')
 
 var OperationalError = bPromise.OperationalError;
 var Environment = nh.Environment;
-var envInstance = new Environment(config.site_env);
+var envInstance = new Environment({
+    serverEnv: config.site_env
+});
 var curEnv = envInstance.curEnv();
 var srcHtml = 'src/client/index.html';
 var destHtml = curEnv;

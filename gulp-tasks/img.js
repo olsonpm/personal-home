@@ -14,7 +14,9 @@ var gulp = require('gulp')
 
 var OperationalError = bPromise.OperationalError;
 var Environment = nh.Environment;
-var curEnv = new Environment(config.site_env).curEnv();
+var curEnv = new Environment({
+    serverEnv: config.site_env
+}).curEnv();
 var srcImg = 'src/client/assets/img';
 var destImg = path.join(curEnv, 'img');
 

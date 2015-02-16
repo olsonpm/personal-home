@@ -37,6 +37,7 @@
     "require-dir": "^0.1.0",
     "through2": "^0.6.3",
     "tiny-lr": "^0.1.4",
+    "uglify-stream": "^1.1.0",
     "vinyl-fs": "git://github.com/wearefractal/vinyl-fs.git",
     "vinyl-source-stream": "^1.0.0",
     "vinyl-transform": "^1.0.0"
