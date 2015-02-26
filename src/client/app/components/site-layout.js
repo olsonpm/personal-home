@@ -2,7 +2,7 @@
 
 var TweenLite = require('TweenLite')
     , nh = require('node-helpers')
-    , initHoverIntent = require('hoverintent');
+    , initHoverIntent = require('hoverintent-jqplugin');
 
 require('perfect-scrollbar');
 require('gsapCssPlugin');
