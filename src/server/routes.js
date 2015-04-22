@@ -13,13 +13,13 @@ var path = require('path');
 
 var ROUTES = {
     home: 'home'
-    , about: 'about'
     , contact: 'contact'
     , linuxThangs: 'linux-thangs'
     , myStack: 'my-stack'
     , miscMusicTool: 'misc-music-tool'
     , twitterApiTester: 'twitter-api-tester'
     , myNodeTools: 'my-node-tools'
+    , weatherAccuracy: 'weather-accuracy'
 };
 
 module.exports = function(app, curEnv, currentDir) {
