@@ -14,7 +14,7 @@ var gulp = require('gulp')
     , nh = require('node-helpers')
     , through2 = require('through2')
     , config = require('../package.json')
-    , uglifyStream = require('uglify-stream')
+    , streamToPromise = require('stream-to-promise')
     , templateCache = require('gulp-angular-templatecache');
 
 var OperationalError = bPromise.OperationalError;
@@ -40,17 +40,25 @@ gulp.task('build-js', ['js-clean'], function(cb) {
         }))
         .pipe(vFs.dest(srcApp))
         .on('end', function() {
-            var bundledStream = browserify(fileIn)
-                .bundle();
+            var bundler = browserify({
+                debug: true
+            });
+            bundler.add(fileIn);
 
-            if (envInstance.isProd()) {
-                bundledStream = bundledStream.pipe(uglifyStream());
+            if (envInstance.isProd()) { // and if prod, uglify
+                bundler.plugin('minifyify', {
+                    output: path.join(curEnv, 'index.map.js')
+                    , map: 'index.map.js'
+                });
             }
 
-            bundledStream.pipe(vss(jsOut))
-                .pipe(replaceENV())
-                .pipe(vFs.dest(curEnv))
-                .on('end', function() {
+            streamToPromise(
+                    bundler.bundle()
+                    .pipe(vss(getJsOut(envInstance)))
+                    .pipe(replaceENV(envInstance))
+                    .pipe(vFs.dest(curEnv))
+                )
+                .then(function() {
                     cb();
                 });
         });
@@ -72,4 +80,10 @@ function replaceENV() {
             cb(null, chunk.toString().replace("ENV_NODE_ENV", curEnv));
         });
     });
+}
+
+function getJsOut(envInst) {
+    return (envInst.isProd())
+        ? 'index.min.js'
+        : 'index.js';
 }
