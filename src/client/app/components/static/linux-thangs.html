@@ -1,12 +1,12 @@
 <h2>Linux Thangs</h2>
 <h3>Bash</h3>
-<p><a href="https://github.com/olsonpm/bash-library">Here is my small Bash library</a>. My first goal when learning bash was to create a usable 'import' command for use in other libraries. Once finished, I created a few import'able libraries including a logger, a test library, a library to manage configuration files, and a simple Bash file_exists wrapper.</p>
+<p><a href="https://github.com/olsonpm/bash-library">Here is my small Bash library</a>. My first goal when learning bash was to create a usable 'import' command for use in other libraries. Once finished, I created an import'able logger, test library, configuration file manager, and simple Bash file_exists wrapper.</p>
 <h3>VSFTPd</h3>
-<p><a href="https://github.com/olsonpm/vsftpd-scripts">Here are my vsftpd scripts</a>. When I first installed Ubuntu server I wanted an ftps server (I guess sftp is superior, but I already started working toward ftps before realizing this). Utilizing the above Bash libraries, I created the scripts which basically formulate an ftp server application. My requirements were:</p>
+<p><a href="https://github.com/olsonpm/vsftpd-scripts">Here are my vsftpd scripts</a>. When I first installed Ubuntu server I wanted an ftps server (I guess sftp is superior, but I already started working toward ftps before realizing this). Utilizing the above Bash libraries, I scripted an ftp server application. My requirements were:</p>
 <ul>
   <li>Security comes first (hence vsftpd and <a href="https://github.com/snookie/pam-pgsql-bcrypt/commits?author=olsonpm">my small contributions to pam-pgsql*</a>)</li>
   <li>Easily support a varying number of users (Scripting user CRUD was a must)</li>
   <li>Users can belong to groups, where a group has a shared r/w directory as well as a read-only directory</li>
 </ul>
-<p>Although I became comfortable working with Bash after this project, It definitely taught me why people choose python/ruby/etc when scripting small applications such as this one. Still, I was very happy with the outcome.</p>
+<p>Although I became comfortable working with Bash after this project, It definitely taught me why people choose python/ruby/etc when scripting small applications. Still, I was very happy with the outcome.</p>
 <p>*Ubuntu's pam-pgsql package didn't support b-crypt and its other options were terrible in comparison, which is why I found an external repository with a b-crypt port.</p>
